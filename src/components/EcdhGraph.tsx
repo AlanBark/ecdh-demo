@@ -5,6 +5,9 @@ interface EcdhGraphData {
   a: string;
   b: string;
   p: string;
+  points: number[][];
+  setPoints: React.Dispatch<React.SetStateAction<number[][]>>;
+  setClicked: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
 /* 
@@ -13,9 +16,7 @@ interface EcdhGraphData {
   This is not optimised at all, it only serves to show an easy way of generating the graph
   and won't perform well for larger values of p 
 */
-const EcdhGraph = ({ a, b, p}: EcdhGraphData) => {
-
-  const [points, setPoints] = useState<number[][]>([]);
+const EcdhGraph = ({ a, b, p, points, setPoints, setClicked}: EcdhGraphData) => {
 
   /**
    * Generates possible y values, remembering that the form for the graph is y^2 = x^3 + ax + b mod p
@@ -68,7 +69,7 @@ const EcdhGraph = ({ a, b, p}: EcdhGraphData) => {
 
 
   return (
-    <Grid col={parseInt(p)} row={parseInt(p)} points={points} labels={true} offset={40} />
+    <Grid col={parseInt(p)} row={parseInt(p)} points={points} labels={true} offset={40} setClicked={setClicked} />
   )
 }
 
